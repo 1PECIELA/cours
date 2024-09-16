@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbes Irréguliers en Anglais - Vérification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 5px;
+            text-align: center;
+        }
+        .correct {
+            background-color: lightgreen;
+        }
+        .incorrect {
+            background-color: lightcoral;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tableau des Verbes Irréguliers en Anglais</h1>
+
+    <table>
+        <tr>
+            <th>Infinitif (Anglais)</th>
+            <th>Prétérit</th>
+            <th>Participe Passé</th>
+            <th>Traduction (Français)</th>
+        </tr>
+        <tr>
+            <td data-answer="be"><input type="text"></td>
+            <td data-answer="was/were"><input type="text"></td>
+            <td data-answer="been"><input type="text"></td>
+            <td data-answer="être"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="begin"><input type="text"></td>
+            <td data-answer="began"><input type="text"></td>
+            <td data-answer="begun"><input type="text"></td>
+            <td data-answer="commencer"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="break"><input type="text"></td>
+            <td data-answer="broke"><input type="text"></td>
+            <td data-answer="broken"><input type="text"></td>
+            <td data-answer="casser"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="choose"><input type="text"></td>
+            <td data-answer="chose"><input type="text"></td>
+            <td data-answer="chosen"><input type="text"></td>
+            <td data-answer="choisir"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="do"><input type="text"></td>
+            <td data-answer="did"><input type="text"></td>
+            <td data-answer="done"><input type="text"></td>
+            <td data-answer="faire"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="drink"><input type="text"></td>
+            <td data-answer="drank"><input type="text"></td>
+            <td data-answer="drunk"><input type="text"></td>
+            <td data-answer="boire"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="eat"><input type="text"></td>
+            <td data-answer="ate"><input type="text"></td>
+            <td data-answer="eaten"><input type="text"></td>
+            <td data-answer="manger"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="go"><input type="text"></td>
+            <td data-answer="went"><input type="text"></td>
+            <td data-answer="gone"><input type="text"></td>
+            <td data-answer="aller"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="have"><input type="text"></td>
+            <td data-answer="had"><input type="text"></td>
+            <td data-answer="had"><input type="text"></td>
+            <td data-answer="avoir"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="make"><input type="text"></td>
+            <td data-answer="made"><input type="text"></td>
+            <td data-answer="made"><input type="text"></td>
+            <td data-answer="faire, fabriquer"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="see"><input type="text"></td>
+            <td data-answer="saw"><input type="text"></td>
+            <td data-answer="seen"><input type="text"></td>
+            <td data-answer="voir"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="take"><input type="text"></td>
+            <td data-answer="took"><input type="text"></td>
+            <td data-answer="taken"><input type="text"></td>
+            <td data-answer="prendre"><input type="text"></td>
+        </tr>
+        <tr>
+            <td data-answer="write"><input type="text"></td>
+            <td data-answer="wrote"><input type="text"></td>
+            <td data-answer="written"><input type="text"></td>
+            <td data-answer="écrire"><input type="text"></td>
+        </tr>
+    </table>
+
+    <button onclick="verifierReponses()">Vérifier les réponses</button>
+
+    <script>
+        // Fonction pour remplir aléatoirement une seule case par ligne
+        function remplirTableauAleatoire() {
+            const lignes = document.querySelectorAll('table tr');
+            lignes.forEach((ligne, index) => {
+                if (index === 0) return; // Ignorer la ligne d'en-tête
+                const colonnes = ligne.querySelectorAll('td');
+                const randomIndex = Math.floor(Math.random() * colonnes.length); // Choisir une colonne au hasard
+
+                // Préremplir une colonne et désactiver le champ de saisie de cette colonne
+                colonnes.forEach((colonne, i) => {
+                    const input = colonne.querySelector('input');
+                    if (i === randomIndex && input) {
+                        input.value = colonne.getAttribute('data-answer'); // Remplir la bonne réponse
+                        input.disabled = true; // Désactiver la saisie pour cette case
+                    }
+                });
+            });
+        }
+
+        // Fonction pour vérifier les réponses des utilisateurs
+        function verifierReponses() {
+            const lignes = document.querySelectorAll('table tr');
+            lignes.forEach((ligne, index) => {
+                if (index === 0) return; // Ignorer la ligne d'en-tête
+                const colonnes = ligne.querySelectorAll('td');
+                colonnes.forEach((colonne) => {
+                    const input = colonne.querySelector('input');
+                    if (input && !input.disabled) {
+                        const bonneReponse = colonne.getAttribute('data-answer');
+                        const utilisateurReponse = input.value.trim();
+                        
+                        if (utilisateurReponse.toLowerCase() === bonneReponse.toLowerCase()) {
+                            input.classList.add('correct');
+                            input.classList.remove('incorrect');
+                        } else {
+                            input.classList.add('incorrect');
+                            input.classList.remove('correct');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Appeler la fonction de remplissage aléatoire une fois la page chargée
+        window.onload = remplirTableauAleatoire;
+    </script>
+
+</body>
+</html>

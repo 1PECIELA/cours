@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary, Hexadecimal, Decimal Conversion Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Number Conversion Practice</h1>
+        <p id="number-display"></p>
+        <form id="conversion-form">
+            <label for="binary">Binary:</label>
+            <input type="text" id="binary" placeholder="Enter Binary"><br>
+            
+            <label for="decimal">Decimal:</label>
+            <input type="text" id="decimal" placeholder="Enter Decimal"><br>
+            
+            <label for="hex">Hexadecimal:</label>
+            <input type="text" id="hex" placeholder="Enter Hexadecimal"><br>
+            
+            <button type="button" onclick="checkAnswer()">Check Answer</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        let currentNumber = {
+            type: '',
+            value: ''
+        };
+    
+        function generateRandomNumber() {
+            const types = ['binary', 'decimal', 'hex'];
+            const type = types[Math.floor(Math.random() * types.length)];
+    
+            let value;
+            let decimalValue = Math.floor(Math.random() * 256); // Number range 0 to 255
+            switch (type) {
+                case 'binary':
+                    value = decimalValue.toString(2);
+                    break;
+                case 'decimal':
+                    value = decimalValue;
+                    break;
+                case 'hex':
+                    value = decimalValue.toString(16).toUpperCase();
+                    break;
+            }
+            currentNumber.type = type;
+            currentNumber.value = value;
+    
+            document.getElementById('number-display').innerText = `Convert this ${type}: ${value}`;
+        }
+    
+        function checkAnswer() {
+            const binaryInput = document.getElementById('binary').value;
+            const decimalInput = document.getElementById('decimal').value;
+            const hexInput = document.getElementById('hex').value.toUpperCase();
+    
+            const decimalFromCurrent = parseInt(currentNumber.value, currentNumber.type === 'binary' ? 2 : currentNumber.type === 'hex' ? 16 : 10);
+    
+            // Remove leading zeros for binary comparison
+            const binaryCorrect = decimalFromCurrent.toString(2) === binaryInput.replace(/^0+/, '');
+            const decimalCorrect = decimalFromCurrent.toString(10) === decimalInput;
+            const hexCorrect = decimalFromCurrent.toString(16).toUpperCase() === hexInput;
+    
+            if (binaryCorrect && decimalCorrect && hexCorrect) {
+                document.getElementById('result').innerText = "Correct!";
+            } else {
+                document.getElementById('result').innerText = "Incorrect, try again!";
+            }
+        }
+    
+        // Generate a random number when the page loads
+        generateRandomNumber();
+    </script>
+    
+
+</body>
+</html>
